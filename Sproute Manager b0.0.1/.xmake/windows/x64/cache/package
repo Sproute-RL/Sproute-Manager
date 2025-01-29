@@ -1,0 +1,58 @@
+{
+    nlohmann_json = {
+        installdir = [[C:\Users\Sproute\AppData\Local\.xmake\packages\n\nlohmann_json\v3.11.3\826582eb66794908a16a49dbdd33bec4]],
+        __enabled = true,
+        version = "v3.11.3",
+        sysincludedirs = [[C:\Users\Sproute\AppData\Local\.xmake\packages\n\nlohmann_json\v3.11.3\826582eb66794908a16a49dbdd33bec4\include]],
+        __requirestr = "nlohmann_json",
+        license = "MIT"
+    },
+    ["sproute-utils"] = {
+        installdir = [[D:\Programming\VS Code\c++\Sproute Manager Project\Sproute Manager b0.0.1\build\.packages\s\sproute-utils\latest\b1caf5aecf3447d1bfaf66081135de32]],
+        libfiles = [[D:\Programming\VS Code\c++\Sproute Manager Project\Sproute Manager b0.0.1\build\.packages\s\sproute-utils\latest\b1caf5aecf3447d1bfaf66081135de32\lib\sproute-utils.lib]],
+        version = "latest",
+        __requirestr = "sproute-utils",
+        linkdirs = [[D:\Programming\VS Code\c++\Sproute Manager Project\Sproute Manager b0.0.1\build\.packages\s\sproute-utils\latest\b1caf5aecf3447d1bfaf66081135de32\lib]],
+        static = true,
+        links = "sproute-utils",
+        __enabled = true,
+        sysincludedirs = [[D:\Programming\VS Code\c++\Sproute Manager Project\Sproute Manager b0.0.1\build\.packages\s\sproute-utils\latest\b1caf5aecf3447d1bfaf66081135de32\include]],
+        license = "MIT"
+    },
+    logger = {
+        installdir = [[D:\Programming\VS Code\c++\Sproute Manager Project\Sproute Manager b0.0.1\build\.packages\l\logger\latest\b1caf5aecf3447d1bfaf66081135de32]],
+        libfiles = [[D:\Programming\VS Code\c++\Sproute Manager Project\Sproute Manager b0.0.1\build\.packages\l\logger\latest\b1caf5aecf3447d1bfaf66081135de32\lib\logger.lib]],
+        version = "latest",
+        __requirestr = "logger",
+        linkdirs = [[D:\Programming\VS Code\c++\Sproute Manager Project\Sproute Manager b0.0.1\build\.packages\l\logger\latest\b1caf5aecf3447d1bfaf66081135de32\lib]],
+        static = true,
+        links = "logger",
+        __enabled = true,
+        sysincludedirs = [[D:\Programming\VS Code\c++\Sproute Manager Project\Sproute Manager b0.0.1\build\.packages\l\logger\latest\b1caf5aecf3447d1bfaf66081135de32\include]],
+        license = "MIT"
+    },
+    imgui = {
+        installdir = [[C:\Users\Sproute\AppData\Local\.xmake\packages\i\imgui\v1.91.6\3c0fd33b473f437a9cf14e211a0a9c56]],
+        libfiles = [[C:\Users\Sproute\AppData\Local\.xmake\packages\i\imgui\v1.91.6\3c0fd33b473f437a9cf14e211a0a9c56\lib\imgui.lib]],
+        links = "imgui",
+        __requirestr = "imgui",
+        linkdirs = [[C:\Users\Sproute\AppData\Local\.xmake\packages\i\imgui\v1.91.6\3c0fd33b473f437a9cf14e211a0a9c56\lib]],
+        sysincludedirs = {
+            [[C:\Users\Sproute\AppData\Local\.xmake\packages\i\imgui\v1.91.6\3c0fd33b473f437a9cf14e211a0a9c56\include]],
+            [[C:\Users\Sproute\AppData\Local\.xmake\packages\i\imgui\v1.91.6\3c0fd33b473f437a9cf14e211a0a9c56\include\imgui]],
+            [[C:\Users\Sproute\AppData\Local\.xmake\packages\i\imgui\v1.91.6\3c0fd33b473f437a9cf14e211a0a9c56\include\backends]],
+            [[C:\Users\Sproute\AppData\Local\.xmake\packages\i\imgui\v1.91.6\3c0fd33b473f437a9cf14e211a0a9c56\include\misc\cpp]]
+        },
+        static = true,
+        __enabled = true,
+        version = "v1.91.6",
+        syslinks = "imm32",
+        __requireconfs = {
+            configs = {
+                dx11 = true,
+                win32 = true
+            }
+        },
+        license = "MIT"
+    }
+}

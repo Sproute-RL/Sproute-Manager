@@ -1,0 +1,5 @@
+[ 33%]: compiling.release password manager\functions\functions.cpp
+[ 50%]: compiling.release password manager\graphics\graphics.cpp
+[ 66%]: compiling.release src\main.cpp
+[ 83%]: linking.release Sproute Manager.exe
+[100%]: build ok, spent 4.687s

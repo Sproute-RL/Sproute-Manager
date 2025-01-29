@@ -1,0 +1,8 @@
+{
+    packages = {
+        [[C:\Users\Sproute\AppData\Local\.xmake\packages\n\nlohmann_json\v3.11.3\826582eb66794908a16a49dbdd33bec4]],
+        [[D:\Programming\VS Code\c++\Sproute Manager Project\Sproute Manager b0.0.1\build\.packages\s\sproute-utils\latest\b1caf5aecf3447d1bfaf66081135de32]],
+        [[D:\Programming\VS Code\c++\Sproute Manager Project\Sproute Manager b0.0.1\build\.packages\l\logger\latest\b1caf5aecf3447d1bfaf66081135de32]],
+        [[C:\Users\Sproute\AppData\Local\.xmake\packages\i\imgui\v1.91.6\3c0fd33b473f437a9cf14e211a0a9c56]]
+    }
+}

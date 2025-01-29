@@ -1,0 +1,96 @@
+{
+    find_package_windows_x64_fetch_package_xmake = {
+        ["xmake::sproute-utils_b1caf5aecf3447d1bfaf66081135de32_release_latest_external"] = {
+            sysincludedirs = {
+                [[D:\Programming\VS Code\c++\Sproute Manager Project\Sproute Manager b0.0.1\build\.packages\s\sproute-utils\latest\b1caf5aecf3447d1bfaf66081135de32\include]]
+            },
+            linkdirs = {
+                [[D:\Programming\VS Code\c++\Sproute Manager Project\Sproute Manager b0.0.1\build\.packages\s\sproute-utils\latest\b1caf5aecf3447d1bfaf66081135de32\lib]]
+            },
+            version = "latest",
+            libfiles = {
+                [[D:\Programming\VS Code\c++\Sproute Manager Project\Sproute Manager b0.0.1\build\.packages\s\sproute-utils\latest\b1caf5aecf3447d1bfaf66081135de32\lib\sproute-utils.lib]]
+            },
+            license = "MIT",
+            static = true,
+            links = {
+                "sproute-utils"
+            }
+        },
+        ["xmake::imgui_3c0fd33b473f437a9cf14e211a0a9c56_release_v1.91.6_external"] = {
+            sysincludedirs = {
+                [[C:\Users\Sproute\AppData\Local\.xmake\packages\i\imgui\v1.91.6\3c0fd33b473f437a9cf14e211a0a9c56\include]],
+                [[C:\Users\Sproute\AppData\Local\.xmake\packages\i\imgui\v1.91.6\3c0fd33b473f437a9cf14e211a0a9c56\include\imgui]],
+                [[C:\Users\Sproute\AppData\Local\.xmake\packages\i\imgui\v1.91.6\3c0fd33b473f437a9cf14e211a0a9c56\include\backends]],
+                [[C:\Users\Sproute\AppData\Local\.xmake\packages\i\imgui\v1.91.6\3c0fd33b473f437a9cf14e211a0a9c56\include\misc\cpp]]
+            },
+            linkdirs = {
+                [[C:\Users\Sproute\AppData\Local\.xmake\packages\i\imgui\v1.91.6\3c0fd33b473f437a9cf14e211a0a9c56\lib]]
+            },
+            version = "v1.91.6",
+            syslinks = "imm32",
+            static = true,
+            license = "MIT",
+            libfiles = {
+                [[C:\Users\Sproute\AppData\Local\.xmake\packages\i\imgui\v1.91.6\3c0fd33b473f437a9cf14e211a0a9c56\lib\imgui.lib]]
+            },
+            links = {
+                "imgui"
+            }
+        },
+        ["xmake::nlohmann_json_826582eb66794908a16a49dbdd33bec4_release_v3.11.3_external"] = {
+            sysincludedirs = {
+                [[C:\Users\Sproute\AppData\Local\.xmake\packages\n\nlohmann_json\v3.11.3\826582eb66794908a16a49dbdd33bec4\include]]
+            },
+            license = "MIT",
+            version = "v3.11.3"
+        },
+        ["xmake::logger_b1caf5aecf3447d1bfaf66081135de32_release_latest_external"] = {
+            sysincludedirs = {
+                [[D:\Programming\VS Code\c++\Sproute Manager Project\Sproute Manager b0.0.1\build\.packages\l\logger\latest\b1caf5aecf3447d1bfaf66081135de32\include]]
+            },
+            linkdirs = {
+                [[D:\Programming\VS Code\c++\Sproute Manager Project\Sproute Manager b0.0.1\build\.packages\l\logger\latest\b1caf5aecf3447d1bfaf66081135de32\lib]]
+            },
+            version = "latest",
+            libfiles = {
+                [[D:\Programming\VS Code\c++\Sproute Manager Project\Sproute Manager b0.0.1\build\.packages\l\logger\latest\b1caf5aecf3447d1bfaf66081135de32\lib\logger.lib]]
+            },
+            license = "MIT",
+            static = true,
+            links = {
+                "logger"
+            }
+        }
+    },
+    find_program_msvc_arch_x64_plat_windows_checktoolcxx = {
+        ["cl.exe"] = [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\bin\HostX64\x64\cl.exe]]
+    },
+    find_program = {
+        ping = "ping",
+        ["C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\cl.exe"] = [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\bin\HostX64\x64\cl.exe]],
+        nim = false,
+        ["7z"] = [[C:\Program Files\xmake\winenv\bin\7z]],
+        gzip = false,
+        git = "git",
+        ["cl.exe"] = [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\bin\HostX64\x64\cl.exe]]
+    },
+    find_program_msvc_arch_x64_plat_windows_checktoolcc = {
+        ["cl.exe"] = [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\bin\HostX64\x64\cl.exe]]
+    },
+    find_program_msvc_arch_x64_plat_windows_checktoolld = {
+        ["link.exe"] = [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.42.34433\bin\HostX64\x64\link.exe]]
+    },
+    find_programver = {
+        ["C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\cl.exe"] = "19.42.34436"
+    },
+    ["lib.detect.has_flags"] = {
+        ["windows_x64_C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\cl.exe_19.42.34436_cxx__-nologo_-O2"] = true,
+        ["windows_x64_C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\cl.exe_19.42.34436_cxx_cxflags_-nologo_cl_external_includedir"] = true,
+        ["windows_x64_C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\cl.exe_19.42.34436_cxx__-nologo_/Zm1000"] = true,
+        ["windows_x64_C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\cl.exe_19.42.34436_cxx_cxflags_-nologo_-DNDEBUG"] = true,
+        ["windows_x64_C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\cl.exe_19.42.34436_cxx_cxxflags_-nologo_/Zm1000"] = true,
+        ["windows_x64_C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\cl.exe_19.42.34436_cxx_cxflags_-nologo_cl_sourceDependencies"] = true,
+        ["windows_x64_C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.42.34433\\bin\\HostX64\\x64\\cl.exe_19.42.34436_cxx_cxflags_-nologo_-std:c++20"] = true
+    }
+}
