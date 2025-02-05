@@ -1,0 +1,11 @@
+prefix=D:/Programming/VS Code/c++/Calling External/build/.packages/s/sproute-utils/latest/b1caf5aecf3447d1bfaf66081135de32
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: sproute-utils
+Description: Cool sproute utils
+Version: latest
+Libs:  -L${libdir} -lsproute-utils
+Libs.private: 
+Cflags:  -I${includedir}

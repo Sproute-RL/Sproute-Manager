@@ -1,0 +1,16 @@
+{
+    mtimes = {
+        ["xmake.lua"] = 1738007505
+    },
+    options = {
+        arch = "x64",
+        kind = "static",
+        clean = true,
+        runtimes = "MT",
+        mode = "release",
+        vs = "2022",
+        buildir = [[D:\\Programming\\VS Code\\c++\\Calling External\\build\\.packages\\s\\shellcode-utils\\latest\\cache\\build_b1caf5ae]],
+        plat = "windows"
+    },
+    recheck = false
+}

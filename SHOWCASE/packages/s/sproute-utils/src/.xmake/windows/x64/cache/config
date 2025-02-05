@@ -1,0 +1,16 @@
+{
+    recheck = false,
+    options = {
+        plat = "windows",
+        buildir = [[D:\\Programming\\VS Code\\c++\\Game Hacking Projects\\Assault Cube\\shellcode\\build\\.packages\\s\\sproute-utils\\latest\\cache\\build_b1caf5ae]],
+        arch = "x64",
+        mode = "release",
+        clean = true,
+        runtimes = "MT",
+        vs = "2022",
+        kind = "static"
+    },
+    mtimes = {
+        ["xmake.lua"] = 1738008070
+    }
+}

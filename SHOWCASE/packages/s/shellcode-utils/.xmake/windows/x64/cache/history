@@ -1,0 +1,16 @@
+{
+    cmdlines = {
+        [[xmake l c:\Users\sproute\.vscode\extensions\tboox.xmake-vscode-2.4.0\assets\explorer.lua]],
+        [[xmake l c:\Users\sproute\.vscode\extensions\tboox.xmake-vscode-2.4.0\assets\config.lua]],
+        "xmake check",
+        "xmake check",
+        "xmake check",
+        "xmake check",
+        "xmake f -p windows -a x64 -m debug",
+        "xmake ",
+        [[xmake lua "C:\\\\Program Files\\\\xmake\\\\modules\\\\private\\\\utils\\\\statistics.lua"]],
+        [[xmake lua "C:\\\\Program Files\\\\xmake\\\\modules\\\\private\\\\utils\\\\statistics.lua"]],
+        [[xmake lua "C:\\\\Program Files\\\\xmake\\\\modules\\\\private\\\\utils\\\\statistics.lua"]],
+        [[xmake lua "C:\\\\Program Files\\\\xmake\\\\modules\\\\private\\\\utils\\\\statistics.lua"]]
+    }
+}

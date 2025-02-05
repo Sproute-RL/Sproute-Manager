@@ -1,0 +1,11 @@
+prefix=D:/Programming/VS Code/c++/Calling External/build/.packages/l/logger/latest/b1caf5aecf3447d1bfaf66081135de32
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: logger
+Description: hacker man
+Version: latest
+Libs:  -L${libdir} -llogger
+Libs.private: 
+Cflags:  -I${includedir}

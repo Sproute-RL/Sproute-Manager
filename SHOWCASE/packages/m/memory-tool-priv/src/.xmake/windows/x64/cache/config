@@ -1,0 +1,16 @@
+{
+    mtimes = {
+        ["xmake.lua"] = 1738172333
+    },
+    options = {
+        plat = "windows",
+        kind = "static",
+        buildir = [[D:\\Programming\\VS Code\\c++\\Roblox Whitelisting\\build\\.packages\\m\\memory-tool-priv\\latest\\cache\\build_b1caf5ae]],
+        arch = "x64",
+        runtimes = "MT",
+        vs = "2022",
+        clean = true,
+        mode = "release"
+    },
+    recheck = false
+}

@@ -1,0 +1,10 @@
+{
+    find_program = {
+        git = "git",
+        nim = false,
+        ["cl.exe"] = [[C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34618\bin\HostX64\x64\cl.exe]]
+    },
+    find_programver = {
+        ["C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.43.34618\\bin\\HostX64\\x64\\cl.exe"] = "19.43.34618"
+    }
+}

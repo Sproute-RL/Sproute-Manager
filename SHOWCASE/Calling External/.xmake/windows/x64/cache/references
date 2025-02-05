@@ -1,0 +1,8 @@
+{
+    packages = {
+        [[D:\Programming\VS Code\c++\Calling External\build\.packages\m\memory-tool-priv\latest\b1caf5aecf3447d1bfaf66081135de32]],
+        [[D:\Programming\VS Code\c++\Calling External\build\.packages\l\logger\latest\b1caf5aecf3447d1bfaf66081135de32]],
+        [[D:\Programming\VS Code\c++\Calling External\build\.packages\s\sproute-utils\latest\b1caf5aecf3447d1bfaf66081135de32]],
+        [[D:\Programming\VS Code\c++\Calling External\build\.packages\s\shellcode-utils\latest\b1caf5aecf3447d1bfaf66081135de32]]
+    }
+}

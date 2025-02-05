@@ -1,0 +1,16 @@
+{
+    options = {
+        kind = "static",
+        arch = "x64",
+        vs = "2022",
+        clean = true,
+        buildir = [[D:\\Programming\\VS Code\\c++\\Game Hacking Projects\\Assault Cube\\shellcode\\build\\.packages\\l\\logger\\latest\\cache\\build_b1caf5ae]],
+        mode = "release",
+        plat = "windows",
+        runtimes = "MT"
+    },
+    mtimes = {
+        ["xmake.lua"] = 1737666751
+    },
+    recheck = false
+}

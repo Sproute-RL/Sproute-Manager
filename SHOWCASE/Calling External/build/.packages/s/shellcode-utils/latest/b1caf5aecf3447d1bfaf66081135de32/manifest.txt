@@ -1,0 +1,32 @@
+{
+    arch = "x64",
+    artifacts = {
+        installdir = [[D:\Programming\VS Code\c++\Calling External\build\.packages\s\shellcode-utils\latest\b1caf5aecf3447d1bfaf66081135de32]]
+    },
+    configs = {
+        debug = false,
+        pic = true,
+        runtimes = "MT",
+        shared = false
+    },
+    description = "Shellcode utilities",
+    envs = { },
+    license = "MIT",
+    mode = "release",
+    name = "shellcode-utils",
+    pathenvs = {
+        "DYLD_LIBRARY_PATH",
+        "PKG_CONFIG_PATH",
+        "PATH",
+        "LD_LIBRARY_PATH",
+        "PYTHONPATH",
+        "ACLOCAL_PATH",
+        "CMAKE_PREFIX_PATH"
+    },
+    plat = "windows",
+    repo = {
+        name = "sproute-repo",
+        url = [[D:\xrepos]]
+    },
+    version = "latest"
+}
