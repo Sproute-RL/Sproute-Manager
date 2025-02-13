@@ -62,6 +62,7 @@ BOOL RelocateImage(PVOID p_remote_img, PVOID p_local_img, PIMAGE_NT_HEADERS nt_h
 	if (!delta_offset) return true;
 	else if (!(nt_head->OptionalHeader.DllCharacteristics & IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE))
 		return false;
+	std::cout << "Relocation delta offset: " << std::hex << delta_offset << std::dec << "\n";
 
 	// Cast p_local_img to uint8_t* before passing it to RVAVA
 	reloc_entry* reloc_ent = (reloc_entry*)RVAVA(nt_head->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_BASERELOC].VirtualAddress, nt_head, (uint8_t*)p_local_img);
@@ -90,6 +91,8 @@ BOOL RelocateImage(PVOID p_remote_img, PVOID p_local_img, PIMAGE_NT_HEADERS nt_h
 					fix_va = (uintptr_t)p_local_img;
 
 				*(uintptr_t*)(fix_va + shift_delta) += delta_offset;
+
+				std::cout << "Relocation at 0x" << std::hex << (fix_va + shift_delta) << " with: 0x" << (fix_va + shift_delta) + delta_offset << "\n";
 			}
 		}
 
@@ -144,6 +147,35 @@ bool IsModuleLoaded(const std::string& moduleName) {
 	return false;
 }
 
+enum ReturnTypes
+{
+	invalidBase,
+	worked
+};
+struct ManualMapData
+{
+	PVOID targetBase;
+	PIMAGE_DOS_HEADER dosHeader;
+	PIMAGE_NT_HEADERS ntHeaders;
+
+	int returnC;
+};
+
+#pragma runtime_checks( "", off )
+#pragma optimize( "", off )
+void __stdcall Shellcode2(ManualMapData* data)
+{
+	/*if (data->targetBase == nullptr)
+	{
+		data->returnC = ReturnTypes::invalidBase;
+		return;
+	}*/
+
+	data->returnC = ReturnTypes::worked;
+}
+#pragma runtime_checks( "", on )
+#pragma optimize( "", on )
+
 bool ManualMap(std::string dllPath)
 {
 	std::ifstream dllFile(dllPath, std::ios::binary | std::ios::ate);
@@ -152,18 +184,22 @@ bool ManualMap(std::string dllPath)
 		std::cerr << "Failed to find " << (std::filesystem::path(dllPath).filename()) << "\n";
 		return false;
 	}
+	std::cout << "Opened file\n";
 
 	std::streampos dllSize = dllFile.tellg();
 	dllFile.seekg(std::ios::beg);
+	std::cout << "File size: " << dllSize << "\n";
 
 	BYTE* dllBuffer = new BYTE[dllSize];
 	dllFile.read(reinterpret_cast<char*>(dllBuffer), dllSize);
 	dllFile.close();
+	std::cout << "Allocated dll buffer\n";
 
 	auto fileBytes = FileToBytes(dllPath);
 
 	PIMAGE_DOS_HEADER dosHeader = reinterpret_cast<PIMAGE_DOS_HEADER>(dllBuffer);
 	PIMAGE_NT_HEADERS ntHeaders = reinterpret_cast<PIMAGE_NT_HEADERS>(dllBuffer + dosHeader->e_lfanew);
+	std::cout << "Got dos and nt headers\n";
 
 	uintptr_t remoteBase = memory->AllocateMemory(ntHeaders->OptionalHeader.SizeOfImage);
 	if (!remoteBase)
@@ -179,6 +215,7 @@ bool ManualMap(std::string dllPath)
 		std::cerr << "Failed to write size of headers" << "\n";
 		return false;
 	}
+	std::cout << "Wrote size of headers\n";
 
 	std::vector<IMAGE_SECTION_HEADER*> sectHdrsVector;
 	IMAGE_SECTION_HEADER* sectionHeaders = IMAGE_FIRST_SECTION(ntHeaders);
@@ -191,6 +228,7 @@ bool ManualMap(std::string dllPath)
 			std::cerr << "Failed to write section header: " << sectionHeader->Name << "\n";
 			return false;
 		}
+		std::cout << "Wrote section: " << sectionHeader->Name << " at: 0x" << std::hex << (remoteBase + sectionHeader->VirtualAddress) << std::dec << "\n";
 		sectHdrsVector.push_back(sectionHeader);
 	}
 	std::cout << "Wrote sections\n";
@@ -236,7 +274,7 @@ bool ManualMap(std::string dllPath)
 						}
 						ThunkData++;
 					}
-					//std::cout << "Resolved: " << ModuleName << "\n";
+					std::cout << "Resolved: " << ModuleName << "\n";
 				}
 				else
 				{
@@ -360,7 +398,7 @@ bool ManualMap(std::string dllPath)
 
 							ImportDescriptor++;
 						}
-						//std::cout << "Resolved: " << ModuleName << "\n";
+						std::cout << "Resolved (with mmap): " << ModuleName << "\n";
 					}
 				}
 			}
@@ -381,44 +419,131 @@ bool ManualMap(std::string dllPath)
 
 	CONTEXT tCtx{};
 	mainT.GetContext(&tCtx, CONTEXT_CONTROL);
+	std::cout << "Got thread context\n";
 
 	uintptr_t oldStack = memory->Read<uintptr_t>(tCtx.Rsp);
+	std::cout << "Old stack at: 0x" << std::hex << oldStack << std::dec << "\n";
 	uintptr_t dllMain = remoteBase + ntHeaders->OptionalHeader.AddressOfEntryPoint;
+	std::cout << "DLL Main at: 0x" << std::hex << dllMain << std::dec << "\n";
 
-	std::cout << "DllMain at: 0x" << std::hex << dllMain << std::dec << "\n";
+	//unsigned char shellcode[] = {
+	//	0x53,                                                                            // push rbx | 1
+	//	0x55,                                                                            // push rbp | 1
+	//	0x57,                                                                            // push rdi | 1
+	//	0x56,                                                                            // push rsi | 1
+	//	0x41, 0x54,                                                                      // push r12 | 2
+	//	0x41, 0x55,                                                                      // push r13 | 2
+	//	0x41, 0x56,                                                                      // push r14 | 2
+	//	0x41, 0x57,                                                                      // push r15 | 2
+	//	0x48, 0x83, 0xec, 0x20,                                                          // sub rsp, 0x20 | 4
+	//	0x48, 0xb9, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x01,                      // mov rcx, 0x111111111111111 | 10
+	//	0xba, 0x01, 0x00, 0x00, 0x00,                                                    // mov edx, 1 | 5
+	//	0x4d, 0x31, 0xc0,                                                                // xor r8, r8 | 3
+	//	0x48, 0xb8, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x03,                      // mov rax, 0x333333333333333 | 10
+	//	0xff, 0xd0,                                                                      // call rax | 2
+	//	0x48, 0x83, 0xc4, 0x20,                                                          // add rsp, 0x20 | 4
+	//	0x41, 0x5f,                                                                      // pop r15 | 2
+	//	0x41, 0x5e,                                                                      // pop r14 | 2
+	//	0x41, 0x5d,                                                                      // pop r13 | 2
+	//	0x41, 0x5c,                                                                      // pop r12 | 2
+	//	0x5e,                                                                            // pop rsi | 1
+	//	0x5f,                                                                            // pop rdi | 1
+	//	0x5d,                                                                            // pop rbp | 1
+	//	0x5b,                                                                            // pop rbx | 1
+	//	0x48, 0xb8, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x03,                      // mov rax, 0x333333333333333 | 10
+	//	0xff, 0xe0                                                                       // jmp rax | 2
+	//	};
 
-	unsigned char shellcode[] = {
-	0x48, 0xb8, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x11, 0x01,                      // mov rax, 0x111111111111111 | 10
-	0x50,                                                                            // push rax | 1
-	0xb8, 0x01, 0x00, 0x00, 0x00,                                                    // mov eax, 1 | 5
-	0x50,                                                                            // push rax | 1
-	0x48, 0x31, 0xc0,                                                                // xor rax, rax | 3
-	0x50,                                                                            // push rax | 1
-	0x48, 0xb8, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x02,                      // mov rax, 0x222222222222222 | 10
-	0xff, 0xd0,                                                                      // call rax | 2
-	0x48, 0xb8, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x03,                      // mov rax, 0x333333333333333 | 10
-	0xff, 0xe0                                                                       // jmp rax | 2
-	};
-
-	*(uintptr_t*)(&shellcode[2]) = (uint64_t)remoteBase;
-	*(uintptr_t*)(&shellcode[23]) = (uint64_t)dllMain;
+	/**(uintptr_t*)(&shellcode[18]) = (uint64_t)remoteBase;
+	*(uintptr_t*)(&shellcode[36]) = (uint64_t)dllMain;
 	*(uintptr_t*)(&shellcode[sizeof(shellcode) - 10]) = (uint64_t)oldStack;
+	std::cout << "Prepared shellcode\n";*/
 
 	uintptr_t codeCave = memory->AllocateMemory(0x1000);
 	std::cout << "Code cave at: 0x" << std::hex << codeCave << std::dec << "\n";
 
-	memory->Write(codeCave, shellcode);
-
-	if (!memory->Write(tCtx.Rsp, codeCave))
+	//if (!memory->Write(codeCave, shellcode))
+	if (!WriteProcessMemory(memory->pHandle, (PVOID)codeCave, Shellcode2, 0x1000, 0))
 	{
-		std::cerr << "Failed to set rsp pointer to code cave\n";
+		std::cerr << "Failed to write shellcode to code cave\n";
 		return false;
 	}
 
+	std::cout << "Wrote shellcode to code cave\n";
+
+	ManualMapData data{ 0 };
+	data.targetBase = (PVOID)remoteBase;
+	data.dosHeader = dosHeader;
+	data.ntHeaders = ntHeaders;
+	std::cout << "Initialized ManualMapData\n";
+
+	BYTE* MappingDataAlloc = reinterpret_cast<BYTE*>(memory->AllocateMemory(sizeof(ManualMapData)));
+	if (!MappingDataAlloc) 
+	{
+		std::cerr << "Failed to allocate memory for manualmapdata\n";
+		return false;
+	}
+	std::cout << "Allocated ManualMapData at: 0x" <<std::hex << (uintptr_t)MappingDataAlloc << "\n";
+
+	if (!WriteProcessMemory(memory->pHandle, MappingDataAlloc, &data, sizeof(ManualMapData), nullptr))
+	{
+		printf("[-] WriteProcessMemory [3] Error: 0x%X\n", GetLastError());
+		return false;
+	}
+	std::cout << "Wrote manual map data to allocated memory\n";
+
+	system("pause");
+	HANDLE hThread = CreateRemoteThread(memory->pHandle, nullptr, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(Shellcode2), MappingDataAlloc, 0, nullptr);
+	if (!hThread) {
+		std::cerr << "Failed to create remote thread\n";
+		return false;
+	}
+	std::cerr << "Created remote thread - dtc\n";
+	CloseHandle(hThread);
+
+	int hCheck = NULL;
+	while (true)
+	{
+		if (hCheck == ReturnTypes::worked)
+		{
+			std::cout << "Shellcode returned ReturnTypes::worked\n";
+			break;
+		}
+
+		DWORD exitcode = 0;
+		GetExitCodeProcess(memory->pHandle, &exitcode);
+		if (exitcode != STILL_ACTIVE) 
+		{
+			std::cerr << "Target crashed with exit code: " << exitcode << "\n";
+			return false;
+		}
+
+		ManualMapData data_checked{ 0 };
+		ReadProcessMemory(memory->pHandle, MappingDataAlloc, &data_checked, sizeof(data_checked), nullptr);
+		hCheck = data_checked.returnC;
+
+		std::cout << hCheck << "\n";
+
+		if (hCheck == ReturnTypes::invalidBase) 
+		{
+			std::cerr << "Shellcode failed at getting remote base\n";
+			return false;
+		}
+	}
+
+	/*if (!memory->Write(tCtx.Rsp, codeCave))
+	{
+		std::cerr << "Failed to set rsp pointer to code cave\n";
+		return false;
+	}*/
+	//std::cout << "Set new stack pointer succesffuly\n";
+
 	mainT.Resume();
+	std::cout << "Resumed target thread\n";
 
 	CloseHandle(threadHandle);
 	delete[] dllBuffer;
+	std::cout << "Cleaned up\n";
 	return true;
 }
 
